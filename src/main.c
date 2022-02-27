@@ -68,10 +68,11 @@ int inspectNorm(char a[MAX][MAX], int x, int y) {
 	
 }
 
+
 void playGames(char a[MAX][MAX], int x, int y) {
 	
 	struct worm worm;
-	int i, many;
+	int i, many, flag = 1;
 	char direct;
 	
 	srand(time(NULL));
@@ -84,7 +85,7 @@ void playGames(char a[MAX][MAX], int x, int y) {
 
 	a[worm.x][worm.y] = '@';
 	
-	while (inspectNorm(a, x, y) > 0) {
+	while (inspectNorm(a, x, y) > 0 && flag == 1) {
 
 
 		printMaps(a, x, y);
@@ -99,31 +100,41 @@ void playGames(char a[MAX][MAX], int x, int y) {
 		if (direct == 'd')
 			for (i = 0; i < many; i++) {
 				worm.x += 1; 
-				if (a[worm.x][worm.y] == '#')
+				if (a[worm.x][worm.y] == '#') {
+					flag = 0;
 					break;
+				}
 			}
 
 		else if (direct == 'u') 
 			for (i = 0; i < many; i++) {
 				worm.x -= 1;
-				if (a[worm.x][worm.y] == '#')
+				if (a[worm.x][worm.y] == '#') {
+					flag = 0;
 					break;
+				}
 			}
 			
 		else if (direct == 'l') 
 			for (i = 0; i < many; i++) {
 				worm.y -= 1;
-				if (a[worm.x][worm.y] == '#')
+				if (a[worm.x][worm.y] == '#') {
+					flag = 0;
 					break;
+				}
 			}
 
 		else if (direct == 'r') 
 			for (i = 0; i < many; i++) {
 				worm.y += 1;
-				if (a[worm.x][worm.y] == '#')
+				if (a[worm.x][worm.y] == '#') {
+					flag = 0;
 					break;
+				}
 			}
-
+		
+		//if (flag == 0) break;
+			
 		a[worm.x][worm.y] = '@';
 
 	}
